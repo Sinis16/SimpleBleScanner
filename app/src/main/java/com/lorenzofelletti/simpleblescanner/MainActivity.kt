@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lorenzofelletti.permissions.PermissionManager
 import com.lorenzofelletti.permissions.dispatcher.dsl.*
-import com.lorenzofelletti.simpleblescanner.BuildConfig.DEBUG
 import com.lorenzofelletti.simpleblescanner.blescanner.BleScanManager
 import com.lorenzofelletti.simpleblescanner.blescanner.adapter.BleDeviceAdapter
 import com.lorenzofelletti.simpleblescanner.blescanner.model.BleDevice
@@ -66,12 +65,11 @@ class MainActivity : AppCompatActivity() {
 
             val device = BleDevice(name)
             if (!foundDevices.contains(device)) {
-                if (DEBUG) {
                     Log.d(
                         BleScanCallback::class.java.simpleName,
                         "${this.javaClass.enclosingMethod?.name} - Found device: $name"
                     )
-                }
+
                 foundDevices.add(device)
                 adapter.notifyItemInserted(foundDevices.size - 1)
             }
@@ -89,8 +87,7 @@ class MainActivity : AppCompatActivity() {
 
         // Adding the onclick listener to the start scan button
         btnStartScan = findViewById(R.id.btn_start_scan)
-        btnStartScan.setOnClickListener {
-            if (DEBUG) Log.i(TAG, "${it.javaClass.simpleName}:${it.id} - onClick event")
+        btnStartScan.setOnClickListener {Log.i(TAG, "${it.javaClass.simpleName}:${it.id} - onClick event")
 
             // Checks if the required permissions are granted and starts the scan if so, otherwise it requests them
             permissionManager checkRequestAndDispatch BLE_PERMISSION_REQUEST_CODE

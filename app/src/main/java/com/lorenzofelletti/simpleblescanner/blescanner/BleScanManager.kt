@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothManager
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import com.lorenzofelletti.simpleblescanner.BuildConfig.DEBUG
 import com.lorenzofelletti.simpleblescanner.blescanner.model.BleScanCallback
 
 /**
@@ -34,7 +33,7 @@ class BleScanManager(
     @SuppressLint("MissingPermission")
     fun scanBleDevices() {
         fun stopScan() {
-            if (DEBUG) Log.d(TAG, "${::scanBleDevices.name} - scan stop")
+            Log.d(TAG, "${::scanBleDevices.name} - scan stop")
             scanning = false
             bleScanner.stopScan(scanCallback)
 
@@ -52,7 +51,7 @@ class BleScanManager(
             executeBeforeScanActions()
 
             // starts scanning
-            if (DEBUG) Log.d(TAG, "${::scanBleDevices.name} - scan start")
+            Log.d(TAG, "${::scanBleDevices.name} - scan start")
             scanning = true
             bleScanner.startScan(scanCallback)
         }
