@@ -13,7 +13,9 @@ import com.lorenzofelletti.simpleblescanner.blescanner.model.BleDevice
  */
 class BleDeviceAdapter(private val devices: List<BleDevice>) : RecyclerView.Adapter<BleDeviceAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val deviceAddressTextView: TextView = itemView.findViewById(R.id.device_address)
         val deviceNameTextView: TextView = itemView.findViewById(R.id.device_name)
+        val deviceRssiTextView: TextView = itemView.findViewById(R.id.device_rssi)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,10 +25,11 @@ class BleDeviceAdapter(private val devices: List<BleDevice>) : RecyclerView.Adap
         return ViewHolder(deviceView)
     }
 
-    override fun onBindViewHolder(holder: BleDeviceAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val device = devices[position]
-        val textView = holder.deviceNameTextView
-        textView.text = device.name
+        holder.deviceAddressTextView.text = device.address
+        holder.deviceNameTextView.text = device.name ?: "Unknown"
+        holder.deviceRssiTextView.text = "RSSI: ${device.rssi ?: "N/A"} dBm"
     }
 
     override fun getItemCount(): Int {
